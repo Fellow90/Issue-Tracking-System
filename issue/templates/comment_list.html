@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <p><a href="{% url 'profile' %}">Switch to profile</a></p>
+
+    <p><a href="{% url 'ticket_create' %}">Create Ticket</a></p>
+
+    <p><a href="{% url 'tickets' %}">List Tickets</a></p>
+
+    <p><a href="{% url 'create_comment' ticket.pk %}">Create a comment!!</a></p>
+
+
+
+    <p><a href="{% url 'logout' %}">Logout Here!!</a></p>
+
+
+      <h2>Comments:</h2>
+      <ul>
+          {% for comment in comments %}
+              <li>
+                  <p>Comment by {{ comment.issuer }}:</p>
+                  <p>{{ comment.comment }}</p>
+                  <p>Created at: {{ comment.created_at }}</p>
+              </li>
+          {% empty %}
+              <li>No comments yet.</li>
+          {% endfor %}
+      </ul>
+</body>
+</html>

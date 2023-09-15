@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <p><a href="{% url 'profile' %}">Switch to profile</a></p>
+
+    <p><a href="{% url 'ticket_create' %}">Create Ticket</a></p>
+
+    <p><a href="{% url 'tickets' %}">List Tickets</a></p>
+
+    <p><a href="{% url 'logout' %}">Logout Here!!</a></p>
+
+
+    <h1>Your Tickets</h1>
+    <ul>
+      {% for ticket in user_tickets %}
+        <li><strong>Ticket_PK ---  {{ ticket.pk }}</strong></li>
+        <p><a href="{% url 'ticket_detail' ticket.pk %}">Click here to edit {{ticket.pk}}!!</a></p>
+      {% endfor %}
+    </ul>
+    
+</body>
+</html>

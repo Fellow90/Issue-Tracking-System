@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <p><a href="{% url 'profile' %}">Switch to profile</a></p>
+
+    <p><a href="{% url 'ticket_create' %}">Create Ticket</a></p>
+
+    <p><a href="{% url 'tickets' %}">List Tickets</a></p>
+
+    <p><a href="{% url 'logout' %}">Logout Here!!</a></p>
+
+    <p><a href="{% url 'comments' ticket.pk %}">List Comments!!</a></p>
+
+    <p><a href="{% url 'create_comment' ticket.pk %}">Create a comment!!</a></p>
+
+
+
+
+
+    <h1>Ticket Details</h1>
+<p><strong>Ticket PK : {{ ticket.pk }}</strong></p>
+<p><strong>Ticket ID : {{ ticket.ticket_id }}</strong></p>
+<p><strong>Company Name : {{ ticket.company_name }}</strong></p>
+<p>Status Code: {{ ticket.status_code }}</p>
+<p>Priority: {{ ticket.priority }}</p>
+<p>Assigned To: {{ ticket.assigned_to }}</p>
+<p>Code: {{ ticket.code }}</p>
+
+<h2>Edit Ticket Details Below!!</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save changes!!</button>
+</form>
+    
+</body>
+</html>
