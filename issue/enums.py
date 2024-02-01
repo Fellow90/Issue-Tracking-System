@@ -28,3 +28,8 @@ GROUP_CHOICES = (
     ('L2','L2'),
     ('L3','L3'),
 )
+RESOLVED_BY_CHOICES = (
+    ('L1','L1'),
+    ('L2','L2'),
+    ('L3','L3'),
+)

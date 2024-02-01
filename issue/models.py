@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from issue.enums import GENDER_CHOICES, STATUS_CHOICES, PRIORITY_CHOICES, GROUP_CHOICES, ROLE_CHOICES
-
+from issue.enums import GENDER_CHOICES, STATUS_CHOICES, PRIORITY_CHOICES, GROUP_CHOICES, ROLE_CHOICES, RESOLVED_BY_CHOICES
 class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=30,null = True, blank = True)
     last_name = models.CharField(max_length=30, null = True, blank = True)
@@ -10,7 +9,7 @@ class CustomUser(AbstractUser):
     address = models.CharField(max_length = 50, null = True, blank = True)
     date_of_birth = models.DateField(null = True, blank = True)
     username = models.CharField(max_length=30, unique = True)
-    # role_choices = models.CharField(max_length=11,choices=ROLE_CHOICES,default='Normal User')
+    role = models.CharField(max_length=11,choices=ROLE_CHOICES,default='Normal User')
 
     def __str__(self):
         return self.username
@@ -20,8 +19,9 @@ class Ticket(models.Model):
     status_code = models.CharField(max_length=3,choices=STATUS_CHOICES, default=200)
     priority = models.CharField(max_length=6,choices = PRIORITY_CHOICES, default='Low')
     company_name = models.CharField(max_length=50)
-    ticket_id = models.CharField(max_length=10,unique=True)
+    ticket_ref = models.CharField(max_length=10)
     assigned_to = models.CharField(max_length=2, choices= GROUP_CHOICES, default='L1')
+    resolved_by = models.CharField(max_length=2,choices=RESOLVED_BY_CHOICES,null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
     code = models.TextField()

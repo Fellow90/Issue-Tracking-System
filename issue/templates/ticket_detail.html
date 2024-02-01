@@ -23,11 +23,13 @@
 
     <h1>Ticket Details</h1>
 <p><strong>Ticket PK : {{ ticket.pk }}</strong></p>
-<p><strong>Ticket ID : {{ ticket.ticket_id }}</strong></p>
+<p><strong>Ticket Reference No : {{ ticket.ticket_ref }}</strong></p>
 <p><strong>Company Name : {{ ticket.company_name }}</strong></p>
 <p>Status Code: {{ ticket.status_code }}</p>
 <p>Priority: {{ ticket.priority }}</p>
 <p>Assigned To: {{ ticket.assigned_to }}</p>
+<p>Resolved By: {{ ticket.resolved_by }}</p>
+
 <p>Code: {{ ticket.code }}</p>
 
 <h2>Edit Ticket Details Below!!</h2>

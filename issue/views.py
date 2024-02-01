@@ -1,4 +1,4 @@
-from typing import Any
+from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 
@@ -6,9 +6,10 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import DetailView, ListView
 from django.contrib.auth.views import LogoutView 
 from django.urls import reverse_lazy
-
+from rest_framework.viewsets import ModelViewSet
 from issue.forms import RegistrationForm, LoginForm, TicketForm, ProfileForm, CommentForm
 from issue.models import CustomUser, Ticket, Comment
+
 
 class UserRegistrationView(CreateView):
     template_name = 'register.html'
@@ -69,6 +70,7 @@ class TicketDetailView(UpdateView,DetailView):
     context_object_name = 'ticket' 
 
     def get_queryset(self):
+        
         return Ticket.objects.filter(issuer = self.request.user)
 
     def get_success_url(self):
@@ -82,9 +84,10 @@ class CommentCreateView(CreateView):
     context_object_name = 'comments'
     template_name = 'comment_create.html'
 
+
     def get_queryset(self):
         kwargs = {'pk' : self.object.pk}   
-        return Comment.objects.filter(ticket__pk = kwargs.get('pk'))
+        return Comment.objects.filter(ticket__pk = kwargs.get('pk'),ticket__issuer = self.request.user)
 
     def form_valid(self, form):
         ticket_pk = self.kwargs.get('pk')
@@ -117,7 +120,13 @@ class CommentListView(ListView):
 
     def get_queryset(self):
         ticket_pk = self.kwargs.get('pk')
-        return Comment.objects.filter(ticket__pk= ticket_pk)
+        return Comment.objects.filter(ticket__pk= ticket_pk,ticket__issuer = self.request.user)
+    
+class L1SupportTicketListView(ListView):
 
-    
-    
+    model = Ticket
+    template_name = 'ticket_list.html'
+    context_object_name = 'user_tickets'
+
+    def get_queryset(self):
+        return Ticket.objects.filter(assigned_to ='L1',status_code = '100')
